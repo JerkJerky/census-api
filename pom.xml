@@ -5,8 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.jerkjerky.census.eventstreaming</groupId>
-    <artifactId>event-streaming-census-api</artifactId>
+    <artifactId>census-api</artifactId>
     <version>1.0</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>event-streaming</module>
+        <module>static-api</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
