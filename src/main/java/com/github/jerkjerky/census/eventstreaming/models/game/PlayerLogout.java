@@ -36,4 +36,13 @@ public class PlayerLogout extends GameCensusEvent {
     void setTimestamp(String timestamp) {
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
+
+    @Override
+    public String toString() {
+        return "PlayerLogout{" +
+                "characterId=" + characterId +
+                ", worldId=" + worldId +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

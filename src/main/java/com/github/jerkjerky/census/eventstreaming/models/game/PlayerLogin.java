@@ -35,4 +35,13 @@ public class PlayerLogin extends GameCensusEvent {
     void setTimestamp(String timestamp) {
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
+
+    @Override
+    public String toString() {
+        return "PlayerLogin{" +
+                "characterId=" + characterId +
+                ", worldId=" + worldId +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

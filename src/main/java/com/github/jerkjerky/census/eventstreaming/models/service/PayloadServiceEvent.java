@@ -38,4 +38,13 @@ public final class PayloadServiceEvent extends BasicCensusEvent {
     void setPayload(GameCensusEvent payload) {
         this.payload = payload;
     }
+
+    @Override
+    public String toString() {
+        return "PayloadServiceEvent{" +
+                "service=" + service +
+                ", type=" + type +
+                ", payload=" + payload +
+                '}';
+    }
 }

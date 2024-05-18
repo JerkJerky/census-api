@@ -95,4 +95,19 @@ public class MetagameEvent extends GameCensusEvent {
     void setTimestamp(String timestamp) {
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
+
+    @Override
+    public String toString() {
+        return "MetagameEvent{" +
+                "worldId=" + worldId +
+                ", experienceBonus='" + experienceBonus + '\'' +
+                ", factionNc='" + factionNc + '\'' +
+                ", factionTr='" + factionTr + '\'' +
+                ", factionVs='" + factionVs + '\'' +
+                ", metagameEventId='" + metagameEventId + '\'' +
+                ", metagameEventState='" + metagameEventState + '\'' +
+                ", zoneId=" + zoneId +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

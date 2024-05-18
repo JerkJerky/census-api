@@ -135,4 +135,23 @@ public class VehicleDestroy extends GameCensusEvent {
     void setTimestamp(String timestamp) {
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
+
+    @Override
+    public String toString() {
+        return "VehicleDestroy{" +
+                "attackerCharacterId=" + attackerCharacterId +
+                ", attackerLoadoutId=" + attackerLoadoutId +
+                ", attackerTeamId=" + attackerTeamId +
+                ", attackerVehicleId=" + attackerVehicleId +
+                ", attackerWeaponId=" + attackerWeaponId +
+                ", characterId=" + characterId +
+                ", facilityId=" + facilityId +
+                ", factionId=" + factionId +
+                ", teamId=" + teamId +
+                ", vehicleId=" + vehicleId +
+                ", worldId=" + worldId +
+                ", zoneId=" + zoneId +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

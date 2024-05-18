@@ -75,4 +75,17 @@ public class ItemAdded extends GameCensusEvent {
     void setTimestamp(String timestamp) {
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
+
+    @Override
+    public String toString() {
+        return "ItemAdded{" +
+                "characterId=" + characterId +
+                ", context='" + context + '\'' +
+                ", itemCount=" + itemCount +
+                ", itemId=" + itemId +
+                ", worldId=" + worldId +
+                ", zoneId=" + zoneId +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

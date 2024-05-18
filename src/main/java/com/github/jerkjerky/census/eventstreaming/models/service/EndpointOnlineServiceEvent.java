@@ -47,4 +47,13 @@ public final class EndpointOnlineServiceEvent extends BasicCensusEvent {
         this.online = online;
     }
 
+    @Override
+    public String toString() {
+        return "EndpointOnlineServiceEvent{" +
+                "service=" + service +
+                ", type=" + type +
+                ", detail='" + detail + '\'' +
+                ", online=" + online +
+                '}';
+    }
 }

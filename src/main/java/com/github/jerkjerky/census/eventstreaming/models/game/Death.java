@@ -157,4 +157,25 @@ public class Death extends GameCensusEvent {
     void setTimestamp(String timestamp) {
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
+
+    @Override
+    public String toString() {
+        return "Death{" +
+                "attackerCharacterId=" + attackerCharacterId +
+                ", attackerFireModeId=" + attackerFireModeId +
+                ", attackerLoadoutId=" + attackerLoadoutId +
+                ", attackerTeamId=" + attackerTeamId +
+                ", attackerVehicleId=" + attackerVehicleId +
+                ", attackerWeaponId=" + attackerWeaponId +
+                ", characterId=" + characterId +
+                ", characterLoadoutId=" + characterLoadoutId +
+                ", isCritical=" + isCritical +
+                ", isHeadshot=" + isHeadshot +
+                ", teamId=" + teamId +
+                ", vehicleId=" + vehicleId +
+                ", worldId=" + worldId +
+                ", zoneId=" + zoneId +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

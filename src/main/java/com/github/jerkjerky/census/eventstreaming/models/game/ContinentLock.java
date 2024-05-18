@@ -106,4 +106,20 @@ public class ContinentLock extends GameCensusEvent {
     void setTimestamp(String timestamp) {
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
+
+    @Override
+    public String toString() {
+        return "ContinentLock{" +
+                "worldId=" + worldId +
+                ", zoneId=" + zoneId +
+                ", triggeringFaction='" + triggeringFaction + '\'' +
+                ", previousFaction='" + previousFaction + '\'' +
+                ", vsPopulation=" + vsPopulation +
+                ", ncPopulation=" + ncPopulation +
+                ", trPopulation=" + trPopulation +
+                ", metagameEventId=" + metagameEventId +
+                ", eventType='" + eventType + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

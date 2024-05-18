@@ -16,4 +16,11 @@ public final class SubscriptionInfoServiceEvent extends BasicCensusEvent {
         this.subscriptions = subscriptions;
     }
 
+
+    @Override
+    public String toString() {
+        return "SubscriptionInfoServiceEvent{" +
+                "subscriptions=" + subscriptions +
+                '}';
+    }
 }

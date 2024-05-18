@@ -57,4 +57,15 @@ public class AchievementEarned extends GameCensusEvent {
     void setTimestamp(String timestamp) {
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
+
+    @Override
+    public String toString() {
+        return "AchievementEarned{" +
+                "characterId=" + characterId +
+                ", worldId=" + worldId +
+                ", achievementId=" + achievementId +
+                ", zoneId=" + zoneId +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

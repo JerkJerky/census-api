@@ -55,4 +55,15 @@ public class SkillAdded extends GameCensusEvent {
     void setTimestamp(String timestamp) {
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
+
+    @Override
+    public String toString() {
+        return "SkillAdded{" +
+                "characterId=" + characterId +
+                ", skillId=" + skillId +
+                ", worldId=" + worldId +
+                ", zoneId=" + zoneId +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

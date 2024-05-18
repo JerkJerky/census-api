@@ -56,4 +56,15 @@ public class BattleRankUp extends GameCensusEvent {
     void setTimestamp(String timestamp) {
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
+
+    @Override
+    public String toString() {
+        return "BattleRankUp{" +
+                "battleRank='" + battleRank + '\'' +
+                ", characterId=" + characterId +
+                ", worldId=" + worldId +
+                ", zoneId=" + zoneId +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

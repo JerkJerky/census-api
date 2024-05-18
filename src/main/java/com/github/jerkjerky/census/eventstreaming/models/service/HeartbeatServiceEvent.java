@@ -37,4 +37,13 @@ public final class HeartbeatServiceEvent extends BasicCensusEvent {
     void setHeartbeatInfo(Map<String, Boolean> heartbeatInfo) {
         this.heartbeatInfo = heartbeatInfo;
     }
+
+    @Override
+    public String toString() {
+        return "HeartbeatServiceEvent{" +
+                "service=" + service +
+                ", type=" + type +
+                ", heartbeatInfo=" + heartbeatInfo +
+                '}';
+    }
 }

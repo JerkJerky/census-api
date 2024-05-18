@@ -38,4 +38,13 @@ public final class ConnectedServiceEvent extends BasicCensusEvent {
         isConnected = connected;
     }
 
+
+    @Override
+    public String toString() {
+        return "ConnectedServiceEvent{" +
+                "service=" + service +
+                ", type=" + type +
+                ", isConnected=" + isConnected +
+                '}';
+    }
 }

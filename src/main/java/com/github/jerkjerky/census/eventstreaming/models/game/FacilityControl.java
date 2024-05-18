@@ -85,4 +85,18 @@ public class FacilityControl extends GameCensusEvent {
     void setTimestamp(String timestamp) {
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
+
+    @Override
+    public String toString() {
+        return "FacilityControl{" +
+                "worldId=" + worldId +
+                ", oldFactionId=" + oldFactionId +
+                ", outfitId=" + outfitId +
+                ", newFactionId=" + newFactionId +
+                ", facilityId=" + facilityId +
+                ", durationHeld='" + durationHeld + '\'' +
+                ", zoneId=" + zoneId +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

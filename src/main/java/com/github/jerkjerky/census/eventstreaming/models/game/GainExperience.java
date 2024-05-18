@@ -95,4 +95,19 @@ public class GainExperience extends GameCensusEvent {
     void setTimestamp(String timestamp) {
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
+
+    @Override
+    public String toString() {
+        return "GainExperience{" +
+                "amount=" + amount +
+                ", characterId=" + characterId +
+                ", experienceId=" + experienceId +
+                ", loadoutId=" + loadoutId +
+                ", otherId=" + otherId +
+                ", teamId=" + teamId +
+                ", worldId=" + worldId +
+                ", zoneId=" + zoneId +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

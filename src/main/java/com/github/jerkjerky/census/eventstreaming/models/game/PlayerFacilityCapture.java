@@ -65,4 +65,16 @@ public class PlayerFacilityCapture extends GameCensusEvent {
     void setTimestamp(String timestamp) {
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
+
+    @Override
+    public String toString() {
+        return "PlayerFacilityCapture{" +
+                "characterId=" + characterId +
+                ", facilityId=" + facilityId +
+                ", outfitId=" + outfitId +
+                ", worldId=" + worldId +
+                ", zoneId=" + zoneId +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }
