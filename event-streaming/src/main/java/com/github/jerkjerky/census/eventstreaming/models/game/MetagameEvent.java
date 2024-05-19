@@ -5,95 +5,77 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.Instant;
 
 public class MetagameEvent extends GameCensusEvent {
-    private WorldId worldId;
-    private String experienceBonus;
-    private String factionNc;
-    private String factionTr;
-    private String factionVs;
-    private String metagameEventId;
-    private String metagameEventState;
-    private Long zoneId;
-    private Instant timestamp;
+    private final WorldId worldId;
+    private final String experienceBonus;
+    private final String factionNc;
+    private final String factionTr;
+    private final String factionVs;
+    private final String instanceId;
+    private final String metagameEventId;
+    private final String metagameEventState;
+    private final Long zoneId;
+    private final Instant timestamp;
+
+    public MetagameEvent(@JsonProperty("world_id") WorldId worldId,
+                         @JsonProperty("experience_bonus") String experienceBonus,
+                         @JsonProperty("faction_nc") String factionNc,
+                         @JsonProperty("faction_tr") String factionTr,
+                         @JsonProperty("faction_vs") String factionVs,
+                         @JsonProperty("instance_id") String instanceId,
+                         @JsonProperty("metagame_event_id") String metagameEventId,
+                         @JsonProperty("metagame_event_state") String metagameEventState,
+                         @JsonProperty("zone_id") Long zoneId,
+                         @JsonProperty("timestamp") String timestamp) {
+        this.worldId = worldId;
+        this.experienceBonus = experienceBonus;
+        this.factionNc = factionNc;
+        this.factionTr = factionTr;
+        this.factionVs = factionVs;
+        this.instanceId = instanceId;
+        this.metagameEventId = metagameEventId;
+        this.metagameEventState = metagameEventState;
+        this.zoneId = zoneId;
+        this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
+    }
 
     public WorldId getWorldId() {
         return worldId;
-    }
-
-    @JsonProperty("world_id")
-    void setWorldId(WorldId worldId) {
-        this.worldId = worldId;
     }
 
     public String getExperienceBonus() {
         return experienceBonus;
     }
 
-    @JsonProperty("experience_bonus")
-    void setExperienceBonus(String experienceBonus) {
-        this.experienceBonus = experienceBonus;
-    }
-
     public String getFactionNc() {
         return factionNc;
-    }
-
-    @JsonProperty("faction_nc")
-    void setFactionNc(String factionNc) {
-        this.factionNc = factionNc;
     }
 
     public String getFactionTr() {
         return factionTr;
     }
 
-    @JsonProperty("faction_tr")
-    void setFactionTr(String factionTr) {
-        this.factionTr = factionTr;
-    }
-
     public String getFactionVs() {
         return factionVs;
     }
 
-    @JsonProperty("faction_vs")
-    void setFactionVs(String factionVs) {
-        this.factionVs = factionVs;
+    public String getInstanceId() {
+        return instanceId;
     }
 
     public String getMetagameEventId() {
         return metagameEventId;
     }
 
-    @JsonProperty("metagame_event_id")
-    void setMetagameEventId(String metagameEventId) {
-        this.metagameEventId = metagameEventId;
-    }
-
     public String getMetagameEventState() {
         return metagameEventState;
-    }
-
-    @JsonProperty("metagame_event_state")
-    void setMetagameEventState(String metagameEventState) {
-        this.metagameEventState = metagameEventState;
     }
 
     public Long getZoneId() {
         return zoneId;
     }
 
-    @JsonProperty("zone_id")
-    void setZoneId(Long zoneId) {
-        this.zoneId = zoneId;
-    }
-
     public Instant getTimestamp() {
         return timestamp;
-    }
-
-    @JsonProperty("timestamp")
-    void setTimestamp(String timestamp) {
-        this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
 
     @Override
@@ -104,6 +86,7 @@ public class MetagameEvent extends GameCensusEvent {
                 ", factionNc='" + factionNc + '\'' +
                 ", factionTr='" + factionTr + '\'' +
                 ", factionVs='" + factionVs + '\'' +
+                ", instanceId='" + instanceId + '\'' +
                 ", metagameEventId='" + metagameEventId + '\'' +
                 ", metagameEventState='" + metagameEventState + '\'' +
                 ", zoneId=" + zoneId +
