@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
-public class ContinentUnlock extends GameCensusEvent {
+public final class ContinentUnlock extends GameCensusEvent {
     private final Long zoneId;
     private final String triggeringFaction;
     private final String previousFaction;

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
-public class MetagameEvent extends GameCensusEvent {
+public final class MetagameEvent extends GameCensusEvent {
     private final String experienceBonus;
     private final String factionNc;
     private final String factionTr;

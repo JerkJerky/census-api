@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
-public class ItemAdded extends GameCensusEvent {
+public final class ItemAdded extends GameCensusEvent {
     private final Long characterId;
     private final String context;
     private final Long itemCount;

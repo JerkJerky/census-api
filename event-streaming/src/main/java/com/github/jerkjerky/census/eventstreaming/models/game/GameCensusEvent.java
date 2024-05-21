@@ -26,7 +26,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(name = "FacilityControl", value = FacilityControl.class),
         @JsonSubTypes.Type(name = "MetagameEvent", value = MetagameEvent.class),
 })
-public abstract class GameCensusEvent {
+public sealed abstract class GameCensusEvent
+        permits AchievementEarned, BattleRankUp, ContinentLock, ContinentUnlock,
+        Death, FacilityControl, GainExperience, ItemAdded,
+        MetagameEvent, PlayerFacilityCapture, PlayerFacilityDefend, PlayerLogin,
+        PlayerLogout, SkillAdded, VehicleDestroy {
 
     private final WorldId worldId;
     private final CensusEventName eventName;

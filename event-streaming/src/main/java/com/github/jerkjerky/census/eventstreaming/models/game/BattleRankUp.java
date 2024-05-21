@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
-public class BattleRankUp extends GameCensusEvent {
+public final class BattleRankUp extends GameCensusEvent {
 
     private final String battleRank;
     private final Long characterId;

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
-public class GainExperience extends GameCensusEvent {
+public final class GainExperience extends GameCensusEvent {
     private final Long amount;
     private final Long characterId;
     private final Long experienceId;

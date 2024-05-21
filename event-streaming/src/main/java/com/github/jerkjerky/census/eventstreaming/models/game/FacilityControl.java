@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
-public class FacilityControl extends GameCensusEvent {
+public final class FacilityControl extends GameCensusEvent {
     private final Long oldFactionId;
     private final Long outfitId;
     private final Long newFactionId;

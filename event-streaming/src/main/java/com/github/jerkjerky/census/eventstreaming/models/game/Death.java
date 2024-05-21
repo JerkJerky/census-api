@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.Instant;
 import java.util.Optional;
 
-public class Death extends GameCensusEvent {
+public final class Death extends GameCensusEvent {
 
     private final Long attackerCharacterId;
     private final Long attackerFireModeId;
@@ -34,8 +34,8 @@ public class Death extends GameCensusEvent {
                  @JsonProperty("attacker_weapon_id") Long attackerWeaponId,
                  @JsonProperty("character_id") Long characterId,
                  @JsonProperty("character_loadout_id") Long characterLoadoutId,
-                 @JsonProperty("is_critical") Boolean isCritical,
-                 @JsonProperty("is_headshot") Boolean isHeadshot,
+                 @JsonProperty("is_critical") CensusBoolean isCritical,
+                 @JsonProperty("is_headshot") CensusBoolean isHeadshot,
                  @JsonProperty("team_id") Long teamId,
                  @JsonProperty("vehicle_id") Long vehicleId,
                  @JsonProperty("zone_id") Long zoneId,
@@ -49,8 +49,8 @@ public class Death extends GameCensusEvent {
         this.attackerWeaponId = attackerWeaponId;
         this.characterId = characterId;
         this.characterLoadoutId = characterLoadoutId;
-        this.isCritical = isCritical;
-        this.isHeadshot = isHeadshot;
+        this.isCritical = isCritical.isValue();
+        this.isHeadshot = isHeadshot.isValue();
         this.teamId = teamId;
         this.vehicleId = vehicleId;
         this.zoneId = zoneId;

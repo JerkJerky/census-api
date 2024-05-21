@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
-public class PlayerLogout extends GameCensusEvent {
+public final class PlayerLogout extends GameCensusEvent {
     private final Long characterId;
     private final Instant timestamp;
 
