@@ -1,6 +1,5 @@
 package com.github.jerkjerky.census.eventstreaming.models.game;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -29,16 +28,27 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public abstract class GameCensusEvent {
 
-    private CensusEventName eventName;
+    private final WorldId worldId;
+    private final CensusEventName eventName;
+
+    protected GameCensusEvent(WorldId worldId, CensusEventName eventName) {
+        this.worldId = worldId;
+        this.eventName = eventName;
+    }
 
     public CensusEventName getEventName() {
         return eventName;
     }
 
-    @JsonProperty("event_name")
-    void setEventName(CensusEventName eventName) {
-        this.eventName = eventName;
+    public WorldId getWorldId() {
+        return worldId;
     }
 
-
+    @Override
+    public String toString() {
+        return "GameCensusEvent{" +
+                "worldId=" + worldId +
+                ", eventName=" + eventName +
+                '}';
+    }
 }

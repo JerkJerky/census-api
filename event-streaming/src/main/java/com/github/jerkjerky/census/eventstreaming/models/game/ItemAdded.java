@@ -1,89 +1,68 @@
 package com.github.jerkjerky.census.eventstreaming.models.game;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
 public class ItemAdded extends GameCensusEvent {
-    private Long characterId;
-    private String context;
-    private Long itemCount;
-    private Long itemId;
-    private WorldId worldId;
-    private Long zoneId;
-    private Instant timestamp;
+    private final Long characterId;
+    private final String context;
+    private final Long itemCount;
+    private final Long itemId;
+    private final Long zoneId;
+    private final Instant timestamp;
+
+    @JsonCreator
+    public ItemAdded(@JsonProperty("world_id") WorldId worldId,
+                     @JsonProperty("event_name") CensusEventName eventName,
+                     @JsonProperty("character_id") Long characterId,
+                     @JsonProperty("context") String context,
+                     @JsonProperty("item_count") Long itemCount,
+                     @JsonProperty("item_id") Long itemId,
+                     @JsonProperty("zone_id") Long zoneId,
+                     @JsonProperty("timestamp") Instant timestamp) {
+        super(worldId, eventName);
+        this.characterId = characterId;
+        this.context = context;
+        this.itemCount = itemCount;
+        this.itemId = itemId;
+        this.zoneId = zoneId;
+        this.timestamp = timestamp;
+    }
 
     public Long getCharacterId() {
         return characterId;
-    }
-
-    @JsonProperty("character_id")
-    void setCharacterId(Long characterId) {
-        this.characterId = characterId;
     }
 
     public String getContext() {
         return context;
     }
 
-    @JsonProperty("context")
-    void setContext(String context) {
-        this.context = context;
-    }
-
     public Long getItemCount() {
         return itemCount;
-    }
-
-    @JsonProperty("item_count")
-    void setItemCount(Long itemCount) {
-        this.itemCount = itemCount;
     }
 
     public Long getItemId() {
         return itemId;
     }
 
-    @JsonProperty("item_id")
-    void setItemId(Long itemId) {
-        this.itemId = itemId;
-    }
-
-    public WorldId getWorldId() {
-        return worldId;
-    }
-
-    @JsonProperty("world_id")
-    void setWorldId(WorldId worldId) {
-        this.worldId = worldId;
-    }
-
     public Long getZoneId() {
         return zoneId;
-    }
-
-    @JsonProperty("zone_id")
-    void setZoneId(Long zoneId) {
-        this.zoneId = zoneId;
     }
 
     public Instant getTimestamp() {
         return timestamp;
     }
 
-    @JsonProperty("timestamp")
-    void setTimestamp(String timestamp) {
-        this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
-    }
-
     @Override
     public String toString() {
         return "ItemAdded{" +
+                super.toString() +
                 "characterId=" + characterId +
                 ", context='" + context + '\'' +
                 ", itemCount=" + itemCount +
                 ", itemId=" + itemId +
-                ", worldId=" + worldId +
                 ", zoneId=" + zoneId +
                 ", timestamp=" + timestamp +
                 '}';

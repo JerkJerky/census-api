@@ -1,144 +1,106 @@
 package com.github.jerkjerky.census.eventstreaming.models.game;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
 public class VehicleDestroy extends GameCensusEvent {
-    private Long attackerCharacterId;
-    private Long attackerLoadoutId;
-    private Long attackerTeamId;
-    private Long attackerVehicleId;
-    private Long attackerWeaponId;
-    private Long characterId;
-    private Long facilityId;
-    private Long factionId;
-    private Long teamId;
-    private Long vehicleId;
-    private WorldId worldId;
-    private Long zoneId;
-    private Instant timestamp;
+    private final Long attackerCharacterId;
+    private final Long attackerLoadoutId;
+    private final Long attackerTeamId;
+    private final Long attackerVehicleId;
+    private final Long attackerWeaponId;
+    private final Long characterId;
+    private final Long facilityId;
+    private final Long factionId;
+    private final Long teamId;
+    private final Long vehicleId;
+    private final Long zoneId;
+    private final Instant timestamp;
+
+    @JsonCreator
+    public VehicleDestroy(@JsonProperty("world_id") WorldId worldId,
+                          @JsonProperty("event_name") CensusEventName eventName,
+                          @JsonProperty("attacker_character_id") Long attackerCharacterId,
+                          @JsonProperty("attacker_loadout_id") Long attackerLoadoutId,
+                          @JsonProperty("attacker_team_id") Long attackerTeamId,
+                          @JsonProperty("attacker_vehicle_id") Long attackerVehicleId,
+                          @JsonProperty("attacker_weapon_id") Long attackerWeaponId,
+                          @JsonProperty("character_id") Long characterId,
+                          @JsonProperty("facility_id") Long facilityId,
+                          @JsonProperty("faction_id") Long factionId,
+                          @JsonProperty("team_id") Long teamId,
+                          @JsonProperty("vehicle_id") Long vehicleId,
+                          @JsonProperty("zone_id") Long zoneId,
+                          @JsonProperty("timestamp") Instant timestamp) {
+        super(worldId, eventName);
+        this.attackerCharacterId = attackerCharacterId;
+        this.attackerLoadoutId = attackerLoadoutId;
+        this.attackerTeamId = attackerTeamId;
+        this.attackerVehicleId = attackerVehicleId;
+        this.attackerWeaponId = attackerWeaponId;
+        this.characterId = characterId;
+        this.facilityId = facilityId;
+        this.factionId = factionId;
+        this.teamId = teamId;
+        this.vehicleId = vehicleId;
+        this.zoneId = zoneId;
+        this.timestamp = timestamp;
+    }
 
     public Long getAttackerCharacterId() {
         return attackerCharacterId;
-    }
-
-    @JsonProperty("attacker_character_id")
-    void setAttackerCharacterId(Long attackerCharacterId) {
-        this.attackerCharacterId = attackerCharacterId;
     }
 
     public Long getAttackerLoadoutId() {
         return attackerLoadoutId;
     }
 
-    @JsonProperty("attacker_loadout_id")
-    void setAttackerLoadoutId(Long attackerLoadoutId) {
-        this.attackerLoadoutId = attackerLoadoutId;
-    }
-
     public Long getAttackerTeamId() {
         return attackerTeamId;
-    }
-
-    @JsonProperty("attacker_team_id")
-    void setAttackerTeamId(Long attackerTeamId) {
-        this.attackerTeamId = attackerTeamId;
     }
 
     public Long getAttackerVehicleId() {
         return attackerVehicleId;
     }
 
-    @JsonProperty("attacker_vehicle_id")
-    void setAttackerVehicleId(Long attackerVehicleId) {
-        this.attackerVehicleId = attackerVehicleId;
-    }
-
     public Long getAttackerWeaponId() {
         return attackerWeaponId;
-    }
-
-    @JsonProperty("attacker_weapon_id")
-    void setAttackerWeaponId(Long attackerWeaponId) {
-        this.attackerWeaponId = attackerWeaponId;
     }
 
     public Long getCharacterId() {
         return characterId;
     }
 
-    @JsonProperty("character_id")
-    void setCharacterId(Long characterId) {
-        this.characterId = characterId;
-    }
-
     public Long getFacilityId() {
         return facilityId;
-    }
-
-    @JsonProperty("facility_id")
-    void setFacilityId(Long facilityId) {
-        this.facilityId = facilityId;
     }
 
     public Long getFactionId() {
         return factionId;
     }
 
-    @JsonProperty("faction_id")
-    void setFactionId(Long factionId) {
-        this.factionId = factionId;
-    }
-
     public Long getTeamId() {
         return teamId;
-    }
-
-    @JsonProperty("team_id")
-    void setTeamId(Long teamId) {
-        this.teamId = teamId;
     }
 
     public Long getVehicleId() {
         return vehicleId;
     }
 
-    @JsonProperty("vehicle_id")
-    void setVehicleId(Long vehicleId) {
-        this.vehicleId = vehicleId;
-    }
-
-    public WorldId getWorldId() {
-        return worldId;
-    }
-
-    @JsonProperty("world_id")
-    void setWorldId(WorldId worldId) {
-        this.worldId = worldId;
-    }
-
     public Long getZoneId() {
         return zoneId;
-    }
-
-    @JsonProperty("zone_id")
-    void setZoneId(Long zoneId) {
-        this.zoneId = zoneId;
     }
 
     public Instant getTimestamp() {
         return timestamp;
     }
 
-    @JsonProperty("timestamp")
-    void setTimestamp(String timestamp) {
-        this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
-    }
-
     @Override
     public String toString() {
         return "VehicleDestroy{" +
+                super.toString() +
                 "attackerCharacterId=" + attackerCharacterId +
                 ", attackerLoadoutId=" + attackerLoadoutId +
                 ", attackerTeamId=" + attackerTeamId +
@@ -149,7 +111,6 @@ public class VehicleDestroy extends GameCensusEvent {
                 ", factionId=" + factionId +
                 ", teamId=" + teamId +
                 ", vehicleId=" + vehicleId +
-                ", worldId=" + worldId +
                 ", zoneId=" + zoneId +
                 ", timestamp=" + timestamp +
                 '}';

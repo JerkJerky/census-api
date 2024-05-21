@@ -1,11 +1,11 @@
 package com.github.jerkjerky.census.eventstreaming.models.game;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
 public class MetagameEvent extends GameCensusEvent {
-    private final WorldId worldId;
     private final String experienceBonus;
     private final String factionNc;
     private final String factionTr;
@@ -13,10 +13,13 @@ public class MetagameEvent extends GameCensusEvent {
     private final String instanceId;
     private final String metagameEventId;
     private final String metagameEventState;
+    private final String metagameEventStateName;
     private final Long zoneId;
     private final Instant timestamp;
 
+    @JsonCreator
     public MetagameEvent(@JsonProperty("world_id") WorldId worldId,
+                         @JsonProperty("event_name") CensusEventName eventName,
                          @JsonProperty("experience_bonus") String experienceBonus,
                          @JsonProperty("faction_nc") String factionNc,
                          @JsonProperty("faction_tr") String factionTr,
@@ -24,9 +27,10 @@ public class MetagameEvent extends GameCensusEvent {
                          @JsonProperty("instance_id") String instanceId,
                          @JsonProperty("metagame_event_id") String metagameEventId,
                          @JsonProperty("metagame_event_state") String metagameEventState,
+                         @JsonProperty("metagame_event_state_name") String metagameEventStateName,
                          @JsonProperty("zone_id") Long zoneId,
                          @JsonProperty("timestamp") String timestamp) {
-        this.worldId = worldId;
+        super(worldId, eventName);
         this.experienceBonus = experienceBonus;
         this.factionNc = factionNc;
         this.factionTr = factionTr;
@@ -34,14 +38,10 @@ public class MetagameEvent extends GameCensusEvent {
         this.instanceId = instanceId;
         this.metagameEventId = metagameEventId;
         this.metagameEventState = metagameEventState;
+        this.metagameEventStateName = metagameEventStateName;
         this.zoneId = zoneId;
         this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
     }
-
-    public WorldId getWorldId() {
-        return worldId;
-    }
-
     public String getExperienceBonus() {
         return experienceBonus;
     }
@@ -81,16 +81,17 @@ public class MetagameEvent extends GameCensusEvent {
     @Override
     public String toString() {
         return "MetagameEvent{" +
-                "worldId=" + worldId +
-                ", experienceBonus='" + experienceBonus + '\'' +
+                super.toString() +
+                "experienceBonus='" + experienceBonus + '\'' +
                 ", factionNc='" + factionNc + '\'' +
                 ", factionTr='" + factionTr + '\'' +
                 ", factionVs='" + factionVs + '\'' +
                 ", instanceId='" + instanceId + '\'' +
                 ", metagameEventId='" + metagameEventId + '\'' +
                 ", metagameEventState='" + metagameEventState + '\'' +
+                ", metagameEventStateName='" + metagameEventStateName + '\'' +
                 ", zoneId=" + zoneId +
                 ", timestamp=" + timestamp +
-                '}';
+                "} ";
     }
 }

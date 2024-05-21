@@ -1,95 +1,71 @@
 package com.github.jerkjerky.census.eventstreaming.models.game;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
 public class FacilityControl extends GameCensusEvent {
-    private WorldId worldId;
-    private Long oldFactionId;
-    private Long outfitId;
-    private Long newFactionId;
-    private Long facilityId;
-    private String durationHeld;
-    private Long zoneId;
-    private Instant timestamp;
+    private final Long oldFactionId;
+    private final Long outfitId;
+    private final Long newFactionId;
+    private final Long facilityId;
+    private final String durationHeld;
+    private final Long zoneId;
+    private final Instant timestamp;
 
-    public WorldId getWorldId() {
-        return worldId;
-    }
-
-    @JsonProperty("world_id")
-    void setWorldId(WorldId worldId) {
-        this.worldId = worldId;
+    @JsonCreator
+    public FacilityControl(@JsonProperty("world_id") WorldId worldId,
+                           @JsonProperty("event_name") CensusEventName eventName,
+                           @JsonProperty("old_faction_id") Long oldFactionId,
+                           @JsonProperty("outfit_id") Long outfitId,
+                           @JsonProperty("new_faction_id") Long newFactionId,
+                           @JsonProperty("facility_id") Long facilityId,
+                           @JsonProperty("duration_held") String durationHeld,
+                           @JsonProperty("zone_id") Long zoneId,
+                           @JsonProperty("timestamp") Instant timestamp) {
+        super(worldId, eventName);
+        this.oldFactionId = oldFactionId;
+        this.outfitId = outfitId;
+        this.newFactionId = newFactionId;
+        this.facilityId = facilityId;
+        this.durationHeld = durationHeld;
+        this.zoneId = zoneId;
+        this.timestamp = timestamp;
     }
 
     public Long getOldFactionId() {
         return oldFactionId;
     }
 
-    @JsonProperty("old_faction_id")
-    void setOldFactionId(Long oldFactionId) {
-        this.oldFactionId = oldFactionId;
-    }
-
     public Long getOutfitId() {
         return outfitId;
-    }
-
-    @JsonProperty("outfit_id")
-    void setOutfitId(Long outfitId) {
-        this.outfitId = outfitId;
     }
 
     public Long getNewFactionId() {
         return newFactionId;
     }
 
-    @JsonProperty("new_faction_id")
-    void setNewFactionId(Long newFactionId) {
-        this.newFactionId = newFactionId;
-    }
-
     public Long getFacilityId() {
         return facilityId;
-    }
-
-    @JsonProperty("facility_id")
-    void setFacilityId(Long facilityId) {
-        this.facilityId = facilityId;
     }
 
     public String getDurationHeld() {
         return durationHeld;
     }
 
-    @JsonProperty("duration_held")
-    void setDurationHeld(String durationHeld) {
-        this.durationHeld = durationHeld;
-    }
-
     public Long getZoneId() {
         return zoneId;
-    }
-
-    @JsonProperty("zone_id")
-    void setZoneId(Long zoneId) {
-        this.zoneId = zoneId;
     }
 
     public Instant getTimestamp() {
         return timestamp;
     }
 
-    @JsonProperty("timestamp")
-    void setTimestamp(String timestamp) {
-        this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
-    }
-
     @Override
     public String toString() {
         return "FacilityControl{" +
-                "worldId=" + worldId +
+                super.toString() +
                 ", oldFactionId=" + oldFactionId +
                 ", outfitId=" + outfitId +
                 ", newFactionId=" + newFactionId +

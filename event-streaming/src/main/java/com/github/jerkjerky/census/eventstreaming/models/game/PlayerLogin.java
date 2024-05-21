@@ -1,46 +1,37 @@
 package com.github.jerkjerky.census.eventstreaming.models.game;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
 public class PlayerLogin extends GameCensusEvent {
-    private Long characterId;
-    private WorldId worldId;
-    private Instant timestamp;
+    private final Long characterId;
+    private final Instant timestamp;
+
+    @JsonCreator
+    public PlayerLogin(@JsonProperty("world_id") WorldId worldId,
+                       @JsonProperty("event_name") CensusEventName eventName,
+                       @JsonProperty("character_id") Long characterId,
+                       @JsonProperty("timestamp") Instant timestamp) {
+        super(worldId, eventName);
+        this.characterId = characterId;
+        this.timestamp = timestamp;
+    }
 
     public Long getCharacterId() {
         return characterId;
-    }
-
-    @JsonProperty("character_id")
-    void setCharacterId(Long characterId) {
-        this.characterId = characterId;
-    }
-
-    public WorldId getWorldId() {
-        return worldId;
-    }
-
-    @JsonProperty("world_id")
-    void setWorldId(WorldId worldId) {
-        this.worldId = worldId;
     }
 
     public Instant getTimestamp() {
         return timestamp;
     }
 
-    @JsonProperty("timestamp")
-    void setTimestamp(String timestamp) {
-        this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
-    }
-
     @Override
     public String toString() {
         return "PlayerLogin{" +
+                super.toString() +
                 "characterId=" + characterId +
-                ", worldId=" + worldId +
                 ", timestamp=" + timestamp +
                 '}';
     }

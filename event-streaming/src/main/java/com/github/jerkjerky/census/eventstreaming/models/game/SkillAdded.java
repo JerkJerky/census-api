@@ -1,67 +1,52 @@
 package com.github.jerkjerky.census.eventstreaming.models.game;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 
 public class SkillAdded extends GameCensusEvent {
-    private Long characterId;
-    private Long skillId;
-    private WorldId worldId;
-    private Long zoneId;
-    private Instant timestamp;
+    private final Long characterId;
+    private final Long skillId;
+    private final Long zoneId;
+    private final Instant timestamp;
+
+    @JsonCreator
+    public SkillAdded(@JsonProperty("world_id") WorldId worldId,
+                      @JsonProperty("event_name") CensusEventName eventName,
+                      @JsonProperty("character_id") Long characterId,
+                      @JsonProperty("skill_id") Long skillId,
+                      @JsonProperty("zone_id") Long zoneId,
+                      @JsonProperty("timestamp") Instant timestamp) {
+        super(worldId, eventName);
+        this.characterId = characterId;
+        this.skillId = skillId;
+        this.zoneId = zoneId;
+        this.timestamp = timestamp;
+    }
 
     public Long getCharacterId() {
         return characterId;
-    }
-
-    @JsonProperty("character_id")
-    void setCharacterId(Long characterId) {
-        this.characterId = characterId;
     }
 
     public Long getSkillId() {
         return skillId;
     }
 
-    @JsonProperty("skill_id")
-    void setSkillId(Long skillId) {
-        this.skillId = skillId;
-    }
-
-    public WorldId getWorldId() {
-        return worldId;
-    }
-
-    @JsonProperty("world_id")
-    void setWorldId(WorldId worldId) {
-        this.worldId = worldId;
-    }
-
     public Long getZoneId() {
         return zoneId;
-    }
-
-    @JsonProperty("zone_id")
-    void setZoneId(Long zoneId) {
-        this.zoneId = zoneId;
     }
 
     public Instant getTimestamp() {
         return timestamp;
     }
 
-    @JsonProperty("timestamp")
-    void setTimestamp(String timestamp) {
-        this.timestamp = Instant.ofEpochMilli(Long.parseLong(timestamp));
-    }
-
     @Override
     public String toString() {
         return "SkillAdded{" +
+                super.toString() +
                 "characterId=" + characterId +
                 ", skillId=" + skillId +
-                ", worldId=" + worldId +
                 ", zoneId=" + zoneId +
                 ", timestamp=" + timestamp +
                 '}';
