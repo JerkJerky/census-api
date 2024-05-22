@@ -13,8 +13,10 @@ import okhttp3.Request;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class CharacterClient {
     private static final HttpUrl CENSUS_OUTFIT_URL = HttpUrl.parse("https://census.daybreakgames.com/get/ps2:v2/character");
@@ -85,7 +87,39 @@ public class CharacterClient {
         TypeReference<CharacterResponse> outfitTypeReference = new TypeReference<>(){};
         CharacterResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
         cacheResponse(outfitResponse);
-        return outfitResponse.getCharacters().getFirst();
+        return Optional.ofNullable(outfitResponse.getCharacters()).map(List::getFirst).orElse(null);
+    }
+
+    public Character fetchCharacterByName(String characterName) {
+        Character character = characterByNameCache.get(characterName);
+        if (character != null && character.getFetchInstant().plus(cacheInvalidationDuration).isBefore(Instant.now())){
+            return character;
+        }
+        Request request = new Request.Builder()
+                .get()
+                .url(CENSUS_OUTFIT_URL.newBuilder()
+                        .addQueryParameter("name.first_lower", String.valueOf(characterName).toLowerCase())
+                        .addEncodedQueryParameter("c:join", "outfit_member_extended")
+                        .build())
+                .build();
+        TypeReference<CharacterResponse> outfitTypeReference = new TypeReference<>(){};
+        CharacterResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
+        cacheResponse(outfitResponse);
+        return Optional.ofNullable(outfitResponse.getCharacters()).map(List::getFirst).orElse(null);
+    }
+
+    public List<Character> fetchCharacterByName(String characterName, SearchModifier searchModifier) {
+        Request request = new Request.Builder()
+                .get()
+                .url(CENSUS_OUTFIT_URL.newBuilder()
+                        .addQueryParameter("name.first_lower", searchModifier.getModifier() + String.valueOf(characterName).toLowerCase())
+                        .addEncodedQueryParameter("c:join", "outfit_member_extended")
+                        .build())
+                .build();
+        TypeReference<CharacterResponse> outfitTypeReference = new TypeReference<>(){};
+        CharacterResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
+        cacheResponse(outfitResponse);
+        return Optional.ofNullable(outfitResponse.getCharacters()).orElse(Collections.emptyList());
     }
 
 }
