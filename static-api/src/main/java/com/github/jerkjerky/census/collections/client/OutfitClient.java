@@ -2,6 +2,7 @@ package com.github.jerkjerky.census.collections.client;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.jerkjerky.census.collections.common.CachingRedirect;
 import com.github.jerkjerky.census.collections.outfit.Outfit;
 import com.github.jerkjerky.census.collections.outfit.OutfitResponse;
 import net.openhft.chronicle.map.ChronicleMap;
@@ -9,21 +10,35 @@ import net.openhft.chronicle.map.ChronicleMapBuilder;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
 
 
 public class OutfitClient {
 
     private static final HttpUrl CENSUS_OUTFIT_URL = HttpUrl.parse("https://census.daybreakgames.com/get/ps2:v2/outfit");
+    public static final Duration CACHE_INVALIDATION_TIME = Duration.of(1, ChronoUnit.HOURS);
 
     private final StaticContentClient staticContentClient;
+    private final Map<Class<?>, CachingRedirect> cachingRedirectMap;
+    private final Duration cacheInvalidationDuration;
     private final ChronicleMap<Long, Outfit> outfitIdCache;
     private final ChronicleMap<String, Outfit> outfitAliasCache;
 
 
     OutfitClient(StaticContentClient staticContentClient,
-                 ObjectMapper objectMapper){
+                 ObjectMapper objectMapper,
+                 Map<Class<?>, CachingRedirect> cachingRedirectMap,
+                 Duration cacheInvalidationDuration){
         this.staticContentClient = staticContentClient;
+        this.cachingRedirectMap = cachingRedirectMap;
+        CachingRedirect<Outfit> outfitCachingRedirect = new CachingRedirect<>(Outfit.class, this::cacheOutfit);
+        this.cachingRedirectMap.put(outfitCachingRedirect.getHandlingClass(), outfitCachingRedirect);
+        this.cacheInvalidationDuration = cacheInvalidationDuration;
+
         this.outfitIdCache = ChronicleMapBuilder.of(Long.class, Outfit.class)
                 .name("outfit_by_id_cache")
                 .entries(20_000)
@@ -39,6 +54,16 @@ public class OutfitClient {
                 .create();
     }
 
+    private void cacheResponse(OutfitResponse outfitResponse) {
+        List<Outfit> outfitList = outfitResponse.getOutfitList();
+        if (outfitList == null){
+            return;
+        }
+        for (Outfit outfit : outfitList) {
+            cacheOutfit(outfit);
+        }
+    }
+
     private void cacheOutfit(Outfit outfit) {
         this.outfitIdCache.put(outfit.getOutfitId(), outfit);
         this.outfitAliasCache.put(outfit.getAlias(), outfit);
@@ -46,7 +71,7 @@ public class OutfitClient {
 
     public Outfit fetchOutfitByAlias(String alias) {
         Outfit outfit = outfitAliasCache.get(alias);
-        if (outfit != null){
+        if (outfit != null && outfit.getFetchInstant().plus(cacheInvalidationDuration).isBefore(Instant.now())){
             return outfit;
         }
         Request request = new Request.Builder()
@@ -57,7 +82,7 @@ public class OutfitClient {
                 .build();
         TypeReference<OutfitResponse> outfitTypeReference = new TypeReference<>(){};
         OutfitResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
-        outfitResponse.getOutfitList().forEach(this::cacheOutfit);
+        cacheResponse(outfitResponse);
         return outfitResponse.getOutfitList().getFirst();
     }
 
@@ -70,13 +95,13 @@ public class OutfitClient {
                 .build();
         TypeReference<OutfitResponse> outfitTypeReference = new TypeReference<>(){};
         OutfitResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
-        outfitResponse.getOutfitList().forEach(this::cacheOutfit);
+        cacheResponse(outfitResponse);
         return outfitResponse.getOutfitList();
     }
 
     public Outfit fetchOutfitById(long outfitId) {
         Outfit outfit = outfitIdCache.get(outfitId);
-        if (outfit != null) {
+        if (outfit != null && outfit.getFetchInstant().plus(cacheInvalidationDuration).isBefore(Instant.now())) {
             return outfit;
         }
         Request request = new Request.Builder()
@@ -87,7 +112,7 @@ public class OutfitClient {
                 .build();
         TypeReference<OutfitResponse> outfitTypeReference = new TypeReference<>(){};
         OutfitResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
-        outfitResponse.getOutfitList().forEach(this::cacheOutfit);
+        cacheResponse(outfitResponse);
         return outfitResponse.getOutfitList().getFirst();
     }
 
@@ -100,7 +125,7 @@ public class OutfitClient {
                 .build();
         TypeReference<OutfitResponse> outfitTypeReference = new TypeReference<>(){};
         OutfitResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
-        outfitResponse.getOutfitList().forEach(this::cacheOutfit);
+        cacheResponse(outfitResponse);
         return outfitResponse.getOutfitList();
     }
 
@@ -113,7 +138,7 @@ public class OutfitClient {
                 .build();
         TypeReference<OutfitResponse> outfitTypeReference = new TypeReference<>(){};
         OutfitResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
-        outfitResponse.getOutfitList().forEach(this::cacheOutfit);
+        cacheResponse(outfitResponse);
         return outfitResponse.getOutfitList();
     }
 
@@ -126,11 +151,8 @@ public class OutfitClient {
                 .build();
         TypeReference<OutfitResponse> outfitTypeReference = new TypeReference<>(){};
         OutfitResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
-        outfitResponse.getOutfitList().forEach(this::cacheOutfit);
+        cacheResponse(outfitResponse);
         return outfitResponse.getOutfitList();
     }
-
-
-
 
 }
