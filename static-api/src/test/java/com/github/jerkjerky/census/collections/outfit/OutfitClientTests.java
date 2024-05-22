@@ -5,12 +5,15 @@ import com.github.jerkjerky.census.collections.client.SearchModifier;
 import com.github.jerkjerky.census.collections.client.StaticContentClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 
 class OutfitClientTests {
+    private final Logger logger = LoggerFactory.getLogger(OutfitClientTests.class);
 
     private static final String SERVICE_ID = System.getenv("CENSUS_API_KEY");
 
@@ -25,6 +28,7 @@ class OutfitClientTests {
 
     @Test
     void askFor91arOutfitInfo() {
+        logger.info(() -> "Service id: " + SERVICE_ID);
         OutfitClient outfitClient = staticContentClient.getOutfitClient();
 
         Instant startFirst = Instant.now();
