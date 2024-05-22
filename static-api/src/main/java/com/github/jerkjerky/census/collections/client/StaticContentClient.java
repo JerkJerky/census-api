@@ -24,7 +24,6 @@ public class StaticContentClient {
     private final String serviceId;
     private final OkHttpClient httpClient;
     private final Map<Class<?>, CachingRedirect> cachingRedirectMap;
-    private final Duration cacheInvalidationDuration;
 
     @Getter
     private final OutfitClient outfitClient;
@@ -42,9 +41,8 @@ public class StaticContentClient {
                 .addInterceptor(new ServiceIdInterceptor(serviceId))
                 .build();
         this.cachingRedirectMap = new HashMap<>();
-        this.cacheInvalidationDuration = cacheInvalidationDuration;
-        this.outfitClient = new OutfitClient(this, objectMapper, cachingRedirectMap, cacheInvalidationDuration);
-        this.characterClient = new CharacterClient(this, objectMapper, cachingRedirectMap, cacheInvalidationDuration);
+        this.outfitClient = new OutfitClient(this, cachingRedirectMap, cacheInvalidationDuration);
+        this.characterClient = new CharacterClient(this, cachingRedirectMap, cacheInvalidationDuration);
     }
 
     @SneakyThrows

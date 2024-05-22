@@ -2,14 +2,11 @@ package com.github.jerkjerky.census.collections.outfit;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.github.jerkjerky.census.collections.character.CharacterOutfitData;
 import com.github.jerkjerky.census.collections.common.CacheInvalidationBase;
 import com.github.jerkjerky.census.collections.serializers.InstantToMillisLongSerializer;
-import lombok.SneakyThrows;
-import net.openhft.chronicle.bytes.Bytes;
 
 import java.time.Instant;
 
@@ -20,16 +17,6 @@ public class Outfit extends CacheInvalidationBase {
     private final Instant timeCreated;
     private final Long leaderCharacterId;
     private final Long memberCount;
-
-    @SneakyThrows
-    public static Outfit cacheDeserialize(Bytes inBytes, ObjectMapper objectMapper) {
-        return objectMapper.readValue(inBytes.toByteArray(), Outfit.class);
-    }
-
-    @SneakyThrows
-    public static void cacheSerialize(Bytes outBytes, ObjectMapper objectMapper, Outfit outfit) {
-        outBytes.write(objectMapper.writeValueAsString(outfit));
-    }
 
     public static Outfit fromCharacterOutfitData(CharacterOutfitData characterOutfitData) {
         return new Outfit(

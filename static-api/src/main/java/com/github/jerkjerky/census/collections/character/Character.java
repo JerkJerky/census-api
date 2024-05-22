@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.github.jerkjerky.census.collections.common.CacheInvalidationBase;
 import lombok.SneakyThrows;
-import net.openhft.chronicle.bytes.Bytes;
 
 import java.time.Instant;
 
@@ -53,17 +52,6 @@ public class Character extends CacheInvalidationBase {
         this.characterDailyRibbon = characterDailyRibbon;
         this.prestigeLevel = Long.parseLong(prestigeLevel);
         this.characterOutfitData = characterOutfitData;
-    }
-
-
-    @SneakyThrows
-    public static Character cacheDeserialize(Bytes inBytes, ObjectMapper objectMapper) {
-        return objectMapper.readValue(inBytes.toByteArray(), Character.class);
-    }
-
-    @SneakyThrows
-    public static void cacheSerialize(Bytes outBytes, ObjectMapper objectMapper, Character character) {
-        outBytes.write(objectMapper.writeValueAsString(character));
     }
 
     @JsonProperty("character_id")
