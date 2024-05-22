@@ -21,7 +21,7 @@ final class ServiceIdInterceptor implements Interceptor {
         HttpUrl url = chain.request().url();
         List<String> pathSegments = url.pathSegments();
         HttpUrl.Builder httpUrlWithInjectedServiceId = url.newBuilder()
-                .setPathSegment(0, this.serviceId)
+                .setEncodedPathSegment(0, "s:" + this.serviceId)
                 .addEncodedQueryParameter("c:limit", String.valueOf(5000));
         pathSegments.forEach(httpUrlWithInjectedServiceId::addPathSegment);
         Request newRequest = chain.request().newBuilder()
