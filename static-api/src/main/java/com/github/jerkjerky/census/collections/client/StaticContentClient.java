@@ -30,7 +30,7 @@ public class StaticContentClient {
     private final RateLimiter rateLimiter = RateLimiter.of("census-static-api-requests", RateLimiterConfig.custom()
             .limitForPeriod(1)
             .timeoutDuration(Duration.of(10, ChronoUnit.SECONDS))
-            .limitRefreshPeriod(Duration.of(250, ChronoUnit.MILLIS))
+            .limitRefreshPeriod(Duration.of(6, ChronoUnit.SECONDS))
             .build());
     private final ObjectMapper objectMapper = new ObjectMapper()
             .registerModule(new JavaTimeModule())
@@ -66,18 +66,19 @@ public class StaticContentClient {
         this.locationsClient = new LocationClient(this, cachingRedirectMap);
     }
 
-    @SneakyThrows
     <T> T makeRequest(Request request, TypeReference<T> typeReference) {
-        byte[] bytes = rateLimiter.executeCheckedSupplier(() -> makeRequestInner(request));
-        return objectMapper.readValue(bytes, typeReference);
+        try {
+            byte[] bytes = rateLimiter.executeCheckedSupplier(() -> makeRequestInner(request));
+            return objectMapper.readValue(bytes, typeReference);
+        } catch (Throwable throwable) {
+            logger.error("Failure during access to census via HTTP", throwable);
+            throw new RuntimeException(throwable);
+        }
     }
 
     protected byte[] makeRequestInner(Request request) throws IOException {
         try(Response response = this.httpClient.newCall(request).execute()){
             return response.body().bytes();
-        } catch (Exception e){
-            logger.error("Failure during access to census via HTTP", e);
-            throw e;
         }
     }
 

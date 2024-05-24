@@ -2,7 +2,9 @@ package com.github.jerkjerky.census.collections.character;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
+@Getter
 public class CharacterBattleRank {
     private final Long percentToNext;
     private final Long value;
@@ -12,13 +14,5 @@ public class CharacterBattleRank {
                                   @JsonProperty("value") String value) {
         this.percentToNext = Long.parseLong(percentToNext);
         this.value = Long.parseLong(value);
-    }
-
-    public Long getPercentToNext() {
-        return percentToNext;
-    }
-
-    public Long getValue() {
-        return value;
     }
 }

@@ -12,6 +12,7 @@ import okhttp3.Request;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class LocationClient {
     private static final HttpUrl CENSUS_MAP_REGION_URL = HttpUrl.parse("https://census.daybreakgames.com/get/ps2:v2/character");
@@ -71,13 +72,10 @@ public class LocationClient {
         TypeReference<FacilityResponse> outfitTypeReference = new TypeReference<>(){};
         FacilityResponse experienceResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
         List<Facility> facilityList = experienceResponse.getFacilityList();
-        CachingRedirect<Zone> cachingRedirect = cachingRedirectMap.get(Zone.class);
         facilityList.forEach(facility -> {
-            facilitiesByIdCache.put(facility.getFacilityId(), facility);
-            if (cachingRedirect == null) {
-                return;
-            }
-            cachingRedirect.cache(facility.getZone());
+            cacheFacility(facility);
+            Optional.ofNullable(facility.getZone())
+                    .ifPresent(this::cacheZone);
         });
     }
 

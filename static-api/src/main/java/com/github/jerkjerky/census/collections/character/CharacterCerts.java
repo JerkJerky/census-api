@@ -2,7 +2,9 @@ package com.github.jerkjerky.census.collections.character;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
+@Getter
 public class CharacterCerts {
     private final Long earnedPoints;
     private final Long giftedPoints;
@@ -21,25 +23,5 @@ public class CharacterCerts {
         this.spentPoints = Long.parseLong(spentPoints);
         this.availablePoints = Long.parseLong(availablePoints);
         this.percentToNext = Double.parseDouble(percentToNext);
-    }
-
-    public Long getEarnedPoints() {
-        return earnedPoints;
-    }
-
-    public Long getGiftedPoints() {
-        return giftedPoints;
-    }
-
-    public Long getSpentPoints() {
-        return spentPoints;
-    }
-
-    public Long getAvailablePoints() {
-        return availablePoints;
-    }
-
-    public Double getPercentToNext() {
-        return percentToNext;
     }
 }

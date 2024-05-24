@@ -40,6 +40,8 @@ public class ExperienceClient {
 
     private void cacheExperience(Experience experience){
         this.experienceCache.put(experience.getId(), experience);
+        Optional.ofNullable(experience.getExperienceAwardType())
+                .ifPresent(this::cacheExperienceAwardType);
     }
 
     private void cacheExperienceAwardType(ExperienceAwardType experienceAwardType) {
@@ -75,10 +77,6 @@ public class ExperienceClient {
         TypeReference<ExperienceResponse> outfitTypeReference = new TypeReference<>(){};
         ExperienceResponse experienceResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
         List<Experience> experienceList = experienceResponse.getExperienceList();
-        experienceList.forEach(experience -> {
-            cacheExperience(experience);
-            Optional.ofNullable(experience.getExperienceAwardType())
-                            .ifPresent(this::cacheExperienceAwardType);
-        });
+        experienceList.forEach(this::cacheExperience);
     }
 }

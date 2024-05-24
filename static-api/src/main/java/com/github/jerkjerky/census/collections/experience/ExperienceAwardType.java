@@ -15,13 +15,5 @@ public class ExperienceAwardType {
         this.typeId = Long.parseLong(typeId);
         this.name = name;
     }
-
-    public Long getTypeId() {
-        return typeId;
-    }
-
-    public String getName() {
-        return name;
-    }
 }
 

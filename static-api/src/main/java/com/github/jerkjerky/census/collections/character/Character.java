@@ -2,11 +2,10 @@ package com.github.jerkjerky.census.collections.character;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.jerkjerky.census.collections.common.CacheInvalidationBase;
+import lombok.Getter;
 
-import java.time.Instant;
-
-public class Character extends CacheInvalidationBase {
+@Getter
+public class Character {
     private final Long characterId;
     private final CharacterName characterName;
     private final Long factionId;
@@ -32,9 +31,7 @@ public class Character extends CacheInvalidationBase {
                         @JsonProperty("profile_id") String profileId,
                         @JsonProperty("daily_ribbon") CharacterDailyRibbon characterDailyRibbon,
                         @JsonProperty("prestige_level") String prestigeLevel,
-                        @JsonProperty("character_id_join_outfit_member_extended") CharacterOutfitData characterOutfitData,
-                        @JsonProperty("fetchInstant") Instant fetchInstant) {
-        super(fetchInstant == null ? Instant.now() : fetchInstant);
+                        @JsonProperty("character_id_join_outfit_member_extended") CharacterOutfitData characterOutfitData) {
         this.characterId = Long.parseLong(characterId);
         this.characterName = characterName;
         this.factionId = Long.parseLong(factionId);
@@ -49,51 +46,4 @@ public class Character extends CacheInvalidationBase {
         this.characterOutfitData = characterOutfitData;
     }
 
-    public Long getCharacterId() {
-        return characterId;
-    }
-
-    public CharacterName getCharacterName() {
-        return characterName;
-    }
-
-    public Long getFactionId() {
-        return factionId;
-    }
-
-    public Long getHeadId() {
-        return headId;
-    }
-
-    public Long getTitleId() {
-        return titleId;
-    }
-
-    public CharacterTimes getCharacterTimes() {
-        return characterTimes;
-    }
-
-    public CharacterCerts getCharacterCerts() {
-        return characterCerts;
-    }
-
-    public CharacterBattleRank getCharacterBattleRank() {
-        return characterBattleRank;
-    }
-
-    public Long getProfileId() {
-        return profileId;
-    }
-
-    public CharacterDailyRibbon getCharacterDailyRibbon() {
-        return characterDailyRibbon;
-    }
-
-    public Long getPrestigeLevel() {
-        return prestigeLevel;
-    }
-
-    public CharacterOutfitData getCharacterOutfitData() {
-        return characterOutfitData;
-    }
 }

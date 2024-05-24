@@ -2,9 +2,11 @@ package com.github.jerkjerky.census.collections.character;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
 import java.time.Instant;
 
+@Getter
 public class CharacterOutfitData {
     private final Instant memberSince;
     private final String memberRank;
@@ -36,42 +38,4 @@ public class CharacterOutfitData {
         this.leaderCharacterId = Long.parseLong(leaderCharacterId);
         this.memberCount = Long.parseLong(memberCount);
     }
-
-    public Instant getMemberSince() {
-        return memberSince;
-    }
-
-    public String getMemberRank() {
-        return memberRank;
-    }
-
-    public Long getMemberRankOrdinal() {
-        return memberRankOrdinal;
-    }
-
-    public Long getOutfitId() {
-        return outfitId;
-    }
-
-    public String getOutfitName() {
-        return outfitName;
-    }
-
-    public String getOutfitAlias() {
-        return outfitAlias;
-    }
-
-    public Instant getOutfitCreationTime() {
-        return outfitCreationTime;
-    }
-
-    public Long getLeaderCharacterId() {
-        return leaderCharacterId;
-    }
-
-    public Long getMemberCount() {
-        return memberCount;
-    }
-
-
 }

@@ -2,7 +2,9 @@ package com.github.jerkjerky.census.collections.common;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
+@Getter
 public class ImageRelativePath {
 
     private final String path;
@@ -10,10 +12,5 @@ public class ImageRelativePath {
     @JsonCreator
     public ImageRelativePath(@JsonProperty("image_path") String path) {
         this.path = path;
-    }
-
-    @JsonProperty("image_path")
-    public String getPath() {
-        return path;
     }
 }

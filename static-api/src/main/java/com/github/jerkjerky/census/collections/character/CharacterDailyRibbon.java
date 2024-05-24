@@ -2,9 +2,11 @@ package com.github.jerkjerky.census.collections.character;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
 import java.time.Instant;
 
+@Getter
 public class CharacterDailyRibbon {
     private final Long count;
     private final Instant time;
@@ -14,13 +16,5 @@ public class CharacterDailyRibbon {
                                    @JsonProperty("time") Instant time) {
         this.count = count;
         this.time = time;
-    }
-
-    public Long getCount() {
-        return count;
-    }
-
-    public Instant getTime() {
-        return time;
     }
 }

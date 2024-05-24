@@ -60,7 +60,7 @@ public class OutfitClient {
             List<Outfit> outfitList = outfitResponse.getOutfitList();
             if (outfitList != null) {
                 for (Outfit outfit : outfitList) {
-                    this.outfitIdCache.put(outfit.getOutfitId(), outfit);
+                    cacheOutfit(outfit);
                 }
             }
             return outfitResponse.getOutfitList().getFirst();
@@ -79,8 +79,7 @@ public class OutfitClient {
         List<Outfit> outfitList = outfitResponse.getOutfitList();
         if (outfitList != null) {
             for (Outfit outfit : outfitList) {
-                this.outfitIdCache.put(outfit.getOutfitId(), outfit);
-                this.outfitAliasCache.put(outfit.getAlias(), outfit);
+                cacheOutfit(outfit);
             }
         }
         return outfitResponse.getOutfitList();
@@ -99,7 +98,7 @@ public class OutfitClient {
             List<Outfit> outfitList = outfitResponse.getOutfitList();
             if (outfitList != null) {
                 for (Outfit outfit : outfitList) {
-                    this.outfitAliasCache.put(outfit.getAlias(), outfit);
+                    cacheOutfit(outfit);
                 }
             }
             return outfitResponse.getOutfitList().getFirst();
@@ -118,8 +117,7 @@ public class OutfitClient {
         List<Outfit> outfitList = outfitResponse.getOutfitList();
         if (outfitList != null) {
             for (Outfit outfit : outfitList) {
-                this.outfitIdCache.put(outfit.getOutfitId(), outfit);
-                this.outfitAliasCache.put(outfit.getAlias(), outfit);
+                cacheOutfit(outfit);
             }
         }
         return outfitResponse.getOutfitList();
@@ -137,8 +135,7 @@ public class OutfitClient {
         List<Outfit> outfitList = outfitResponse.getOutfitList();
         if (outfitList != null) {
             for (Outfit outfit : outfitList) {
-                this.outfitIdCache.put(outfit.getOutfitId(), outfit);
-                this.outfitAliasCache.put(outfit.getAlias(), outfit);
+                cacheOutfit(outfit);
             }
         }
         return outfitResponse.getOutfitList();
@@ -156,8 +153,7 @@ public class OutfitClient {
         List<Outfit> outfitList = outfitResponse.getOutfitList();
         if (outfitList != null) {
             for (Outfit outfit : outfitList) {
-                this.outfitIdCache.put(outfit.getOutfitId(), outfit);
-                this.outfitAliasCache.put(outfit.getAlias(), outfit);
+                cacheOutfit(outfit);
             }
         }
         return outfitResponse.getOutfitList();

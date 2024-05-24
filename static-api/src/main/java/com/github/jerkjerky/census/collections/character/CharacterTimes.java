@@ -2,9 +2,11 @@ package com.github.jerkjerky.census.collections.character;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
 import java.time.Instant;
 
+@Getter
 public class CharacterTimes {
     private final Instant creation;
     private final Instant lastSave;
@@ -23,25 +25,5 @@ public class CharacterTimes {
         this.lastLogin = Instant.ofEpochMilli(Long.parseLong(lastLogin));
         this.loginCount = Long.parseLong(loginCount);
         this.minutesPlayed = Long.parseLong(minutesPlayed);
-    }
-
-    public Instant getCreation() {
-        return creation;
-    }
-
-    public Instant getLastSave() {
-        return lastSave;
-    }
-
-    public Instant getLastLogin() {
-        return lastLogin;
-    }
-
-    public Long getLoginCount() {
-        return loginCount;
-    }
-
-    public Long getMinutesPlayed() {
-        return minutesPlayed;
     }
 }
