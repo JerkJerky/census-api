@@ -1,6 +1,6 @@
-package com.github.jerkjerky.census.eventstreaming.client;
+package io.github.jerkjerky.census.eventstreaming.client;
 
-import com.github.jerkjerky.census.eventstreaming.models.game.*;
+import io.github.jerkjerky.census.eventstreaming.models.game.*;
 
 public interface GameEventVisitor {
     default void visit(GameCensusEvent event){

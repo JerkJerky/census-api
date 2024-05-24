@@ -1,4 +1,4 @@
-package com.github.jerkjerky.census.eventstreaming.models.game;
+package io.github.jerkjerky.census.eventstreaming.models.game;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

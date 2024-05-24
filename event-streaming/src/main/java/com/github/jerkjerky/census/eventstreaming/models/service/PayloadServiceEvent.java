@@ -1,9 +1,9 @@
-package com.github.jerkjerky.census.eventstreaming.models.service;
+package io.github.jerkjerky.census.eventstreaming.models.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.jerkjerky.census.eventstreaming.models.ServiceEventType;
-import com.github.jerkjerky.census.eventstreaming.models.ServiceType;
-import com.github.jerkjerky.census.eventstreaming.models.game.GameCensusEvent;
+import io.github.jerkjerky.census.eventstreaming.models.ServiceEventType;
+import io.github.jerkjerky.census.eventstreaming.models.ServiceType;
+import io.github.jerkjerky.census.eventstreaming.models.game.GameCensusEvent;
 
 public final class PayloadServiceEvent extends BasicCensusEvent {
 

@@ -1,4 +1,4 @@
-package com.github.jerkjerky.census.eventstreaming.models;
+package io.github.jerkjerky.census.eventstreaming.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

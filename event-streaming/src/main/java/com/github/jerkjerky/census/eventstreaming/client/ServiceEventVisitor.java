@@ -1,7 +1,7 @@
-package com.github.jerkjerky.census.eventstreaming.client;
+package io.github.jerkjerky.census.eventstreaming.client;
 
-import com.github.jerkjerky.census.eventstreaming.models.service.*;
-import com.github.jerkjerky.census.eventstreaming.models.game.GameCensusEvent;
+import io.github.jerkjerky.census.eventstreaming.models.service.*;
+import io.github.jerkjerky.census.eventstreaming.models.game.GameCensusEvent;
 
 public interface ServiceEventVisitor {
 

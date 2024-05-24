@@ -1,4 +1,4 @@
-package com.github.jerkjerky.census.eventstreaming.models.request;
+package io.github.jerkjerky.census.eventstreaming.models.request;
 
 
 import java.util.List;

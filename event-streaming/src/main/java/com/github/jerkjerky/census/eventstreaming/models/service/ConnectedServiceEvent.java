@@ -1,8 +1,8 @@
-package com.github.jerkjerky.census.eventstreaming.models.service;
+package io.github.jerkjerky.census.eventstreaming.models.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.jerkjerky.census.eventstreaming.models.ServiceEventType;
-import com.github.jerkjerky.census.eventstreaming.models.ServiceType;
+import io.github.jerkjerky.census.eventstreaming.models.ServiceEventType;
+import io.github.jerkjerky.census.eventstreaming.models.ServiceType;
 
 public final class ConnectedServiceEvent extends BasicCensusEvent {
 
