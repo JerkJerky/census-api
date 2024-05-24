@@ -1,8 +1,7 @@
 package com.github.jerkjerky.census.collections.locations;
 
-import com.github.jerkjerky.census.collections.client.ExperienceClient;
+import com.github.jerkjerky.census.collections.client.LocationClient;
 import com.github.jerkjerky.census.collections.client.StaticContentClient;
-import com.github.jerkjerky.census.collections.experience.Experience;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,12 +11,21 @@ class LocationsClientTests {
     private final StaticContentClient staticContentClient = new StaticContentClient(SERVICE_ID);
 
     @Test
-    void fetchKillPlayerExperienceType() {
-        ExperienceClient experienceClient = staticContentClient.getExperienceClient();
+    void fetchFacility() {
+        LocationClient locationsClient = staticContentClient.getLocationsClient();
 
-        Experience experience = Assertions.assertDoesNotThrow(() -> experienceClient.fetchExperienceById(1L));
+        Facility facility = Assertions.assertDoesNotThrow(() -> locationsClient.fetchFacilityById(1L));
 
-        Assertions.assertNotNull(experience);
+        Assertions.assertNotNull(facility);
+    }
+
+    @Test
+    void fetchZone() {
+        LocationClient locationsClient = staticContentClient.getLocationsClient();
+
+        Zone zone = Assertions.assertDoesNotThrow(() -> locationsClient.fetchZoneById(1L));
+
+        Assertions.assertNotNull(zone);
     }
 
 }
