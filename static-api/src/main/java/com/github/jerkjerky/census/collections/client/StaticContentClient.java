@@ -8,6 +8,8 @@ import com.github.jerkjerky.census.collections.common.CachingRedirect;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import okhttp3.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -15,6 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class StaticContentClient {
+
+    private static final Logger logger = LoggerFactory.getLogger(StaticContentClient.class);
 
     public static final Duration CACHE_INVALIDATION_TIME = Duration.of(2, ChronoUnit.HOURS);
 
@@ -31,6 +35,8 @@ public class StaticContentClient {
     private final CharacterClient characterClient;
     @Getter
     private final ExperienceClient experienceClient;
+    @Getter
+    private final LocationClient locationsClient;
 
     public StaticContentClient(String serviceId) {
         this(serviceId, CACHE_INVALIDATION_TIME);
@@ -46,12 +52,16 @@ public class StaticContentClient {
         this.outfitClient = new OutfitClient(this, cachingRedirectMap, cacheInvalidationDuration);
         this.characterClient = new CharacterClient(this, cachingRedirectMap, cacheInvalidationDuration);
         this.experienceClient = new ExperienceClient(this, cachingRedirectMap);
+        this.locationsClient = new LocationClient(this, cachingRedirectMap);
     }
 
     @SneakyThrows
     <T> T makeRequest(Request request, TypeReference<T> typeReference) {
         try(Response response = this.httpClient.newCall(request).execute()){
             return objectMapper.readValue(response.body().bytes(), typeReference);
+        } catch (Exception e){
+            logger.error("Failure during access to census via HTTP", e);
+            throw e;
         }
     }
 
