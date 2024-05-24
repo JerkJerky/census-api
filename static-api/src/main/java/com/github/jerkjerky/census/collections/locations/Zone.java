@@ -23,13 +23,13 @@ public class Zone {
                    @JsonProperty("name") I18nProperty name,
                    @JsonProperty("description") I18nProperty description,
                    @JsonProperty("geometry_id") Long geometryId,
-                   @JsonProperty("dynamic") boolean isDynamic) {
+                   @JsonProperty("dynamic") String isDynamic) {
         this.zoneId = zoneId;
         this.code = code;
         this.hexSize = hexSize;
         this.name = name;
         this.description = description;
         this.geometryId = geometryId;
-        this.isDynamic = isDynamic;
+        this.isDynamic = isDynamic.equals("1");
     }
 }

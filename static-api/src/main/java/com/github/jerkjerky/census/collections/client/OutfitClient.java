@@ -48,23 +48,25 @@ public class OutfitClient {
     }
 
     public Outfit fetchOutfitByAlias(String alias) {
-        return outfitAliasCache.get(alias, key -> {
-            Request request = new Request.Builder()
-                    .get()
-                    .url(CENSUS_OUTFIT_URL.newBuilder()
-                            .addQueryParameter("alias_lower", key.toLowerCase())
-                            .build())
-                    .build();
-            TypeReference<OutfitResponse> outfitTypeReference = new TypeReference<>(){};
-            OutfitResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
-            List<Outfit> outfitList = outfitResponse.getOutfitList();
-            if (outfitList != null) {
-                for (Outfit outfit : outfitList) {
-                    cacheOutfit(outfit);
-                }
+        Outfit cachedOutfit = outfitAliasCache.getIfPresent(alias);
+        if (cachedOutfit != null){
+            return cachedOutfit;
+        }
+        Request request = new Request.Builder()
+                .get()
+                .url(CENSUS_OUTFIT_URL.newBuilder()
+                        .addQueryParameter("alias_lower", alias.toLowerCase())
+                        .build())
+                .build();
+        TypeReference<OutfitResponse> outfitTypeReference = new TypeReference<>(){};
+        OutfitResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
+        List<Outfit> outfitList = outfitResponse.getOutfitList();
+        if (outfitList != null) {
+            for (Outfit outfit : outfitList) {
+                cacheOutfit(outfit);
             }
-            return outfitResponse.getOutfitList().getFirst();
-        });
+        }
+        return outfitResponse.getOutfitList().getFirst();
     }
 
     public List<Outfit> fetchOutfitByAlias(String alias, SearchModifier searchModifier) {
@@ -86,23 +88,25 @@ public class OutfitClient {
     }
 
     public Outfit fetchOutfitById(long outfitId) {
-        return outfitIdCache.get(outfitId, key -> {
-            Request request = new Request.Builder()
-                    .get()
-                    .url(CENSUS_OUTFIT_URL.newBuilder()
-                            .addQueryParameter("outfit_id", String.valueOf(key))
-                            .build())
-                    .build();
-            TypeReference<OutfitResponse> outfitTypeReference = new TypeReference<>(){};
-            OutfitResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
-            List<Outfit> outfitList = outfitResponse.getOutfitList();
-            if (outfitList != null) {
-                for (Outfit outfit : outfitList) {
-                    cacheOutfit(outfit);
-                }
+        Outfit cachedOutfit = outfitIdCache.getIfPresent(outfitId);
+        if (cachedOutfit != null){
+            return cachedOutfit;
+        }
+        Request request = new Request.Builder()
+                .get()
+                .url(CENSUS_OUTFIT_URL.newBuilder()
+                        .addQueryParameter("outfit_id", String.valueOf(outfitId))
+                        .build())
+                .build();
+        TypeReference<OutfitResponse> outfitTypeReference = new TypeReference<>(){};
+        OutfitResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
+        List<Outfit> outfitList = outfitResponse.getOutfitList();
+        if (outfitList != null) {
+            for (Outfit outfit : outfitList) {
+                cacheOutfit(outfit);
             }
-            return outfitResponse.getOutfitList().getFirst();
-        });
+        }
+        return outfitResponse.getOutfitList().getFirst();
     }
 
     public List<Outfit> fetchOutfitsById(long outfitId, SearchModifier searchModifier) {
