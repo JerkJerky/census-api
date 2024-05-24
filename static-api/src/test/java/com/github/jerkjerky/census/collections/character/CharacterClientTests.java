@@ -1,19 +1,16 @@
 package com.github.jerkjerky.census.collections.character;
 
 import com.github.jerkjerky.census.collections.client.CharacterClient;
-import com.github.jerkjerky.census.collections.client.StaticContentClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static com.github.jerkjerky.census.collections.TestSuite.CLIENT;
+
 class CharacterClientTests {
-
-    private static final String SERVICE_ID = System.getenv("CENSUS_API_KEY");
-
-    private final StaticContentClient staticContentClient = new StaticContentClient(SERVICE_ID);
 
     @Test
     void fetchJerkJerkyProfileById() {
-        CharacterClient characterClient = staticContentClient.getCharacterClient();
+        CharacterClient characterClient = CLIENT.getCharacterClient();
 
         Character character = Assertions.assertDoesNotThrow(() -> characterClient.fetchCharacterById(8252468702026658913L));
 
@@ -22,7 +19,7 @@ class CharacterClientTests {
 
     @Test
     void fetchJerkJerkyProfileByName() {
-        CharacterClient characterClient = staticContentClient.getCharacterClient();
+        CharacterClient characterClient = CLIENT.getCharacterClient();
 
         Character character = Assertions.assertDoesNotThrow(() -> characterClient.fetchCharacterByName("JerkJerky"));
 
@@ -31,7 +28,7 @@ class CharacterClientTests {
 
     @Test
     void fetchGelarddProfileByName() {
-        CharacterClient characterClient = staticContentClient.getCharacterClient();
+        CharacterClient characterClient = CLIENT.getCharacterClient();
 
         Character character = Assertions.assertDoesNotThrow(() -> characterClient.fetchCharacterByName("Gelardd"));
 
