@@ -12,6 +12,7 @@ import okhttp3.Request;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class ExperienceClient {
     private static final HttpUrl CENSUS_EXPERIENCE_URL = HttpUrl.parse("https://census.daybreakgames.com/get/ps2:v2/experience");
@@ -80,7 +81,8 @@ public class ExperienceClient {
             if (cachingRedirect == null) {
                 return;
             }
-            cachingRedirect.cache(experience.getExperienceAwardType());
+            Optional.ofNullable(experience.getExperienceAwardType())
+                    .ifPresent(cachingRedirect::cache);
         });
     }
 }

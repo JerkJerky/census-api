@@ -28,7 +28,6 @@ class OutfitClientTests {
 
     @Test
     void askFor91arOutfitInfo() {
-        logger.info(() -> "Service id: " + SERVICE_ID);
         OutfitClient outfitClient = staticContentClient.getOutfitClient();
 
         Instant startFirst = Instant.now();

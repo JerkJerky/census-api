@@ -2,9 +2,11 @@ package com.github.jerkjerky.census.collections.experience;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class ExperienceResponse {
 
     private final List<Experience> experienceList;
@@ -15,13 +17,5 @@ public class ExperienceResponse {
                                  @JsonProperty("returned") long returned){
         this.experienceList = experienceList;
         this.returned = returned;
-    }
-
-    public List<Experience> getExperienceList() {
-        return experienceList;
-    }
-
-    public long getReturned() {
-        return returned;
     }
 }
