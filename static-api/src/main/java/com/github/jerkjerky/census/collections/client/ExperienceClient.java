@@ -13,7 +13,7 @@ import okhttp3.Request;
 import java.util.List;
 import java.util.Map;
 
-class ExperienceClient {
+public class ExperienceClient {
     private static final HttpUrl CENSUS_EXPERIENCE_URL = HttpUrl.parse("https://census.daybreakgames.com/get/ps2:v2/experience");
 
     private final StaticContentClient staticContentClient;
