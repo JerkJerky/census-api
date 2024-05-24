@@ -29,6 +29,8 @@ public class StaticContentClient {
     private final OutfitClient outfitClient;
     @Getter
     private final CharacterClient characterClient;
+    @Getter
+    private final ExperienceClient experienceClient;
 
     public StaticContentClient(String serviceId) {
         this(serviceId, CACHE_INVALIDATION_TIME);
@@ -43,6 +45,7 @@ public class StaticContentClient {
         this.cachingRedirectMap = new HashMap<>();
         this.outfitClient = new OutfitClient(this, cachingRedirectMap, cacheInvalidationDuration);
         this.characterClient = new CharacterClient(this, cachingRedirectMap, cacheInvalidationDuration);
+        this.experienceClient = new ExperienceClient(this, cachingRedirectMap);
     }
 
     @SneakyThrows
