@@ -53,53 +53,49 @@ public class CharacterClient {
     }
 
     public Character fetchCharacterById(Long characterId) {
-        return characterByIdCache.get(characterId, key -> {
-            Request request = new Request.Builder()
-                    .get()
-                    .url(CENSUS_OUTFIT_URL.newBuilder()
-                            .addQueryParameter("character_id", String.valueOf(key))
-                            .addEncodedQueryParameter("c:join", "outfit_member_extended")
-                            .build())
-                    .build();
-            TypeReference<CharacterResponse> outfitTypeReference = new TypeReference<>(){};
-            CharacterResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
-            List<Character> characters = outfitResponse.getCharacters();
-            if (characters != null) {
-                for (Character character : characters) {
-                    this.characterByNameCache.put(character.getCharacterName().getFirst().toLowerCase(), character);
-                    CachingRedirect<Outfit> cachingRedirect = this.cachingRedirectMap.get(Outfit.class);
-                    if (cachingRedirect != null) {
-                        cachingRedirect.cache(Outfit.fromCharacterOutfitData(character.getCharacterOutfitData()));
-                    }
-                }
+        Character cachedCharacter = characterByIdCache.getIfPresent(characterId);
+        if (cachedCharacter != null) {
+            return cachedCharacter;
+        }
+        Request request = new Request.Builder()
+                .get()
+                .url(CENSUS_OUTFIT_URL.newBuilder()
+                        .addQueryParameter("character_id", String.valueOf(characterId))
+                        .addEncodedQueryParameter("c:join", "outfit_member_extended")
+                        .build())
+                .build();
+        TypeReference<CharacterResponse> outfitTypeReference = new TypeReference<>(){};
+        CharacterResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
+        List<Character> characters = outfitResponse.getCharacters();
+        if (characters != null) {
+            for (Character character : characters) {
+               cacheCharacter(character);
             }
-            return Optional.ofNullable(outfitResponse.getCharacters()).map(List::getFirst).orElse(null);
-        });
+        }
+        return Optional.ofNullable(outfitResponse.getCharacters()).map(List::getFirst).orElse(null);
     }
 
     public Character fetchCharacterByName(String characterName) {
-        return characterByNameCache.get(characterName, key -> {
-            Request request = new Request.Builder()
-                    .get()
-                    .url(CENSUS_OUTFIT_URL.newBuilder()
-                            .addQueryParameter("name.first_lower", String.valueOf(key).toLowerCase())
-                            .addEncodedQueryParameter("c:join", "outfit_member_extended")
-                            .build())
-                    .build();
-            TypeReference<CharacterResponse> outfitTypeReference = new TypeReference<>(){};
-            CharacterResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
-            List<Character> characters = outfitResponse.getCharacters();
-            if (characters != null) {
-                for (Character character : characters) {
-                    this.characterByIdCache.put(character.getCharacterId(), character);
-                    CachingRedirect<Outfit> cachingRedirect = this.cachingRedirectMap.get(Outfit.class);
-                    if (cachingRedirect != null) {
-                        cachingRedirect.cache(Outfit.fromCharacterOutfitData(character.getCharacterOutfitData()));
-                    }
-                }
+        Character cachedCharacter = characterByNameCache.getIfPresent(characterName);
+        if (cachedCharacter != null){
+            return cachedCharacter;
+        }
+        Request request = new Request.Builder()
+                .get()
+                .url(CENSUS_OUTFIT_URL.newBuilder()
+                        .addQueryParameter("name.first_lower", String.valueOf(characterName).toLowerCase())
+                        .addEncodedQueryParameter("c:join", "outfit_member_extended")
+                        .build())
+                .build();
+        TypeReference<CharacterResponse> outfitTypeReference = new TypeReference<>(){};
+        CharacterResponse outfitResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
+        List<Character> characters = outfitResponse.getCharacters();
+        if (characters != null) {
+            for (Character character : characters) {
+                cacheCharacter(character);
             }
-            return Optional.ofNullable(outfitResponse.getCharacters()).map(List::getFirst).orElse(null);
-        });
+        }
+        return Optional.ofNullable(outfitResponse.getCharacters()).map(List::getFirst).orElse(null);
     }
 
     public List<Character> fetchCharacterByName(String characterName, SearchModifier searchModifier) {
@@ -115,12 +111,7 @@ public class CharacterClient {
         List<Character> characters = outfitResponse.getCharacters();
         if (characters != null) {
             for (Character character : characters) {
-                this.characterByIdCache.put(character.getCharacterId(), character);
-                this.characterByNameCache.put(character.getCharacterName().getFirst().toLowerCase(), character);
-                CachingRedirect<Outfit> cachingRedirect = this.cachingRedirectMap.get(Outfit.class);
-                if (cachingRedirect != null) {
-                    cachingRedirect.cache(Outfit.fromCharacterOutfitData(character.getCharacterOutfitData()));
-                }
+                cacheCharacter(character);
             }
         }
         return Optional.ofNullable(outfitResponse.getCharacters()).orElse(Collections.emptyList());
