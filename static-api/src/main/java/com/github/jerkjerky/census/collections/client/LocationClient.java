@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class LocationClient {
-    private static final HttpUrl CENSUS_MAP_REGION_URL = HttpUrl.parse("https://census.daybreakgames.com/get/ps2:v2/character");
+    private static final HttpUrl CENSUS_MAP_REGION_URL = HttpUrl.parse("https://census.daybreakgames.com/get/ps2:v2/map_region");
 
     private final StaticContentClient staticContentClient;
     private final Map<Class<?>, CachingRedirect> cachingRedirectMap;

@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class CharacterClient {
-    private static final HttpUrl CENSUS_OUTFIT_URL = HttpUrl.parse("https://census.daybreakgames.com/get/ps2:v2/character");
+    private static final HttpUrl CENSUS_CHARACTER_URL = HttpUrl.parse("https://census.daybreakgames.com/get/ps2:v2/character");
 
     private final StaticContentClient staticContentClient;
     private final Map<Class<?>, CachingRedirect> cachingRedirectMap;
@@ -59,7 +59,7 @@ public class CharacterClient {
         }
         Request request = new Request.Builder()
                 .get()
-                .url(CENSUS_OUTFIT_URL.newBuilder()
+                .url(CENSUS_CHARACTER_URL.newBuilder()
                         .addQueryParameter("character_id", String.valueOf(characterId))
                         .addEncodedQueryParameter("c:join", "outfit_member_extended")
                         .build())
@@ -82,7 +82,7 @@ public class CharacterClient {
         }
         Request request = new Request.Builder()
                 .get()
-                .url(CENSUS_OUTFIT_URL.newBuilder()
+                .url(CENSUS_CHARACTER_URL.newBuilder()
                         .addQueryParameter("name.first_lower", String.valueOf(characterName).toLowerCase())
                         .addEncodedQueryParameter("c:join", "outfit_member_extended")
                         .build())
@@ -101,7 +101,7 @@ public class CharacterClient {
     public List<Character> fetchCharacterByName(String characterName, SearchModifier searchModifier) {
         Request request = new Request.Builder()
                 .get()
-                .url(CENSUS_OUTFIT_URL.newBuilder()
+                .url(CENSUS_CHARACTER_URL.newBuilder()
                         .addQueryParameter("name.first_lower", searchModifier.getModifier() + String.valueOf(characterName).toLowerCase())
                         .addEncodedQueryParameter("c:join", "outfit_member_extended")
                         .build())
