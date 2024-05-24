@@ -29,7 +29,7 @@ public class StaticContentClient {
     private final RateLimiter rateLimiter = RateLimiter.of("census-static-api-requests", RateLimiterConfig.custom()
             .limitForPeriod(1)
             .timeoutDuration(Duration.of(10, ChronoUnit.SECONDS))
-            .limitRefreshPeriod(Duration.of(6, ChronoUnit.SECONDS))
+            .limitRefreshPeriod(Duration.of(250, ChronoUnit.MILLIS))
             .build());
     private final ObjectMapper objectMapper = new ObjectMapper()
             .registerModule(new JavaTimeModule())
@@ -76,7 +76,9 @@ public class StaticContentClient {
     }
 
     protected byte[] makeRequestInner(Request request) throws IOException {
+        logger.debug("Sending request {}", request);
         try(Response response = this.httpClient.newCall(request).execute()){
+            logger.debug("Received response {}", response);
             return response.body().bytes();
         }
     }

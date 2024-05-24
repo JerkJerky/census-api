@@ -37,7 +37,9 @@ public class LocationClient {
     }
 
     private void cacheFacility(Facility facility) {
-        facilitiesByIdCache.put(facility.getFacilityId(), facility);
+        facilitiesByIdCache.put(facility.getMapRegionId(), facility);
+        Optional.ofNullable(facility.getZone())
+                .ifPresent(this::cacheZone);
     }
 
     private void cacheZone(Zone zone) {
@@ -72,11 +74,7 @@ public class LocationClient {
         TypeReference<FacilityResponse> outfitTypeReference = new TypeReference<>(){};
         FacilityResponse experienceResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
         List<Facility> facilityList = experienceResponse.getFacilityList();
-        facilityList.forEach(facility -> {
-            cacheFacility(facility);
-            Optional.ofNullable(facility.getZone())
-                    .ifPresent(this::cacheZone);
-        });
+        facilityList.forEach(this::cacheFacility);
     }
 
 

@@ -77,6 +77,9 @@ public class ExperienceClient {
         TypeReference<ExperienceResponse> outfitTypeReference = new TypeReference<>(){};
         ExperienceResponse experienceResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
         List<Experience> experienceList = experienceResponse.getExperienceList();
+        if (experienceList == null){
+            return;
+        }
         experienceList.forEach(this::cacheExperience);
     }
 }
