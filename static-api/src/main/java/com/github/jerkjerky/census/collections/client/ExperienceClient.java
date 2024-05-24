@@ -75,14 +75,10 @@ public class ExperienceClient {
         TypeReference<ExperienceResponse> outfitTypeReference = new TypeReference<>(){};
         ExperienceResponse experienceResponse = this.staticContentClient.makeRequest(request, outfitTypeReference);
         List<Experience> experienceList = experienceResponse.getExperienceList();
-        CachingRedirect<ExperienceAwardType> cachingRedirect = cachingRedirectMap.get(ExperienceAwardType.class);
         experienceList.forEach(experience -> {
-            experienceCache.put(experience.getId(), experience);
-            if (cachingRedirect == null) {
-                return;
-            }
+            cacheExperience(experience);
             Optional.ofNullable(experience.getExperienceAwardType())
-                    .ifPresent(cachingRedirect::cache);
+                            .ifPresent(this::cacheExperienceAwardType);
         });
     }
 }
