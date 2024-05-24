@@ -2,11 +2,8 @@ package com.github.jerkjerky.census.collections.outfit;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.github.jerkjerky.census.collections.character.CharacterOutfitData;
 import com.github.jerkjerky.census.collections.common.CacheInvalidationBase;
-import com.github.jerkjerky.census.collections.serializers.InstantToMillisLongSerializer;
 
 import java.time.Instant;
 
@@ -47,36 +44,26 @@ public class Outfit extends CacheInvalidationBase {
         this.memberCount = Long.parseLong(memberCount);
     }
 
-    @JsonProperty("outfit_id")
-    @JsonSerialize(using = ToStringSerializer.class)
     public Long getOutfitId() {
         return outfitId;
     }
 
-    @JsonProperty("name")
     public String getName() {
         return name;
     }
 
-    @JsonProperty("alias")
     public String getAlias() {
         return alias;
     }
 
-    @JsonProperty("time_created")
-    @JsonSerialize(using = InstantToMillisLongSerializer.class)
     public Instant getTimeCreated() {
         return timeCreated;
     }
 
-    @JsonProperty("leader_character_id")
-    @JsonSerialize(using = ToStringSerializer.class)
     public Long getLeaderCharacterId() {
         return leaderCharacterId;
     }
 
-    @JsonProperty("member_count")
-    @JsonSerialize(using = ToStringSerializer.class)
     public Long getMemberCount() {
         return memberCount;
     }
