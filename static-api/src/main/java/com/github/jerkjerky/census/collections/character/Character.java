@@ -1,13 +1,8 @@
 package com.github.jerkjerky.census.collections.character;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.github.jerkjerky.census.collections.common.CacheInvalidationBase;
-import lombok.SneakyThrows;
 
 import java.time.Instant;
 
@@ -54,68 +49,50 @@ public class Character extends CacheInvalidationBase {
         this.characterOutfitData = characterOutfitData;
     }
 
-    @JsonProperty("character_id")
-    @JsonSerialize(using = ToStringSerializer.class)
     public Long getCharacterId() {
         return characterId;
     }
 
-    @JsonProperty("name")
     public CharacterName getCharacterName() {
         return characterName;
     }
 
-    @JsonProperty("faction_id")
-    @JsonSerialize(using = ToStringSerializer.class)
     public Long getFactionId() {
         return factionId;
     }
 
-    @JsonProperty("head_id")
-    @JsonSerialize(using = ToStringSerializer.class)
     public Long getHeadId() {
         return headId;
     }
 
-    @JsonProperty("title_id")
-    @JsonSerialize(using = ToStringSerializer.class)
     public Long getTitleId() {
         return titleId;
     }
 
-    @JsonProperty("times")
     public CharacterTimes getCharacterTimes() {
         return characterTimes;
     }
 
-    @JsonProperty("certs")
     public CharacterCerts getCharacterCerts() {
         return characterCerts;
     }
 
-    @JsonProperty("battle_rank")
     public CharacterBattleRank getCharacterBattleRank() {
         return characterBattleRank;
     }
 
-    @JsonProperty("profile_id")
-    @JsonSerialize(using = ToStringSerializer.class)
     public Long getProfileId() {
         return profileId;
     }
 
-    @JsonProperty("daily_ribbon")
     public CharacterDailyRibbon getCharacterDailyRibbon() {
         return characterDailyRibbon;
     }
 
-    @JsonProperty("prestige_level")
-    @JsonSerialize(using = ToStringSerializer.class)
     public Long getPrestigeLevel() {
         return prestigeLevel;
     }
 
-    @JsonIgnore
     public CharacterOutfitData getCharacterOutfitData() {
         return characterOutfitData;
     }

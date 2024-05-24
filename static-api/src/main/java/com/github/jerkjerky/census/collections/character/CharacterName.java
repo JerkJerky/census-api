@@ -11,7 +11,6 @@ public class CharacterName {
         this.first = first;
     }
 
-    @JsonProperty("first")
     public String getFirst() {
         return first;
     }
