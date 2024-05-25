@@ -68,7 +68,7 @@ public class OutfitClient {
             }
         }
         return Optional.ofNullable(outfitResponse.getOutfitList())
-                .filter(List::isEmpty)
+                .filter(outfits -> !outfits.isEmpty())
                 .map(List::getFirst);
     }
 
