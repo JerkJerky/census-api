@@ -12,6 +12,7 @@ import okhttp3.Request;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 public class OutfitClient {
@@ -47,10 +48,10 @@ public class OutfitClient {
         this.outfitAliasCache.put(outfit.getAlias(), outfit);
     }
 
-    public Outfit fetchOutfitByAlias(String alias) {
+    public Optional<Outfit> fetchOutfitByAlias(String alias) {
         Outfit cachedOutfit = outfitAliasCache.getIfPresent(alias);
         if (cachedOutfit != null){
-            return cachedOutfit;
+            return Optional.of(cachedOutfit);
         }
         Request request = new Request.Builder()
                 .get()
@@ -66,7 +67,9 @@ public class OutfitClient {
                 cacheOutfit(outfit);
             }
         }
-        return outfitResponse.getOutfitList().getFirst();
+        return Optional.ofNullable(outfitResponse.getOutfitList())
+                .filter(List::isEmpty)
+                .map(List::getFirst);
     }
 
     public List<Outfit> fetchOutfitByAlias(String alias, SearchModifier searchModifier) {

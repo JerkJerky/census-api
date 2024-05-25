@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 import static io.github.jerkjerky.census.collections.TestSuite.CLIENT;
 
@@ -23,9 +24,11 @@ class OutfitClientTests {
     void askFor91arOutfitInfo() {
         OutfitClient outfitClient = CLIENT.getOutfitClient();
 
-        Outfit outfit = Assertions.assertDoesNotThrow(() -> outfitClient.fetchOutfitByAlias("91AR"));
+        Optional<Outfit> optionalOutfit = Assertions.assertDoesNotThrow(() -> outfitClient.fetchOutfitByAlias("91AR"));
 
-        Assertions.assertEquals("91AR", outfit.getAlias());
+        Assertions.assertTrue(optionalOutfit.isPresent());
+
+        Assertions.assertEquals("91AR", optionalOutfit.orElseThrow().getAlias());
     }
 
     @Test
