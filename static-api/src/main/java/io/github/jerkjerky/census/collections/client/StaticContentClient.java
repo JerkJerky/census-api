@@ -68,19 +68,19 @@ public class StaticContentClient {
 
     <T> T makeRequest(Request request, TypeReference<T> typeReference) {
         try {
-            byte[] bytes = rateLimiter.executeCheckedSupplier(() -> makeRequestInner(request));
-            return objectMapper.readValue(bytes, typeReference);
+            String responseString = rateLimiter.executeCheckedSupplier(() -> makeRequestInner(request));
+            return objectMapper.readValue(responseString, typeReference);
         } catch (Throwable throwable) {
             logger.error("Failure during access to census via HTTP", throwable);
             throw new RuntimeException(throwable);
         }
     }
 
-    protected byte[] makeRequestInner(Request request) throws IOException {
+    protected String makeRequestInner(Request request) throws IOException {
         logger.debug("Sending request {}", request);
         try(Response response = this.httpClient.newCall(request).execute()){
             logger.debug("Received response {}", response);
-            return response.body().bytes();
+            return response.body().string();
         }
     }
 

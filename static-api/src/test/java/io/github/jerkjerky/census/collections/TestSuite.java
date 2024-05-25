@@ -5,7 +5,7 @@ import org.junit.platform.suite.api.SelectPackages;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
 
-@Suite // Census is so unstable that tests are more for development purposes only :/
+@Suite
 @SuiteDisplayName("Static census API test suite")
 @SelectPackages("io.github.jerkjerky.census.collections")
 public class TestSuite {
