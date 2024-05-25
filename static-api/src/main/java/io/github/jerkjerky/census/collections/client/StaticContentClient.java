@@ -19,6 +19,7 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class StaticContentClient {
 
@@ -54,7 +55,7 @@ public class StaticContentClient {
 
     public StaticContentClient(String serviceId,
                                Duration cacheInvalidationDuration) {
-        this.serviceId = serviceId;
+        this.serviceId = Objects.requireNonNull(serviceId);
         this.httpClient = new OkHttpClient.Builder()
                 .addInterceptor(new ServiceIdInterceptor(serviceId))
                 .build();
