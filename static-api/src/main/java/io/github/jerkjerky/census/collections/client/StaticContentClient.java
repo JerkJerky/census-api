@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.github.jerkjerky.census.collections.common.CachingRedirect;
-import io.github.resilience4j.ratelimiter.RateLimiter;
-import io.github.resilience4j.ratelimiter.RateLimiterConfig;
 import lombok.Getter;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -27,11 +25,6 @@ public class StaticContentClient {
 
     public static final Duration CACHE_INVALIDATION_TIME = Duration.of(2, ChronoUnit.HOURS);
 
-    private final RateLimiter rateLimiter = RateLimiter.of("census-static-api-requests", RateLimiterConfig.custom()
-            .limitForPeriod(1)
-            .timeoutDuration(Duration.of(10, ChronoUnit.SECONDS))
-            .limitRefreshPeriod(Duration.of(250, ChronoUnit.MILLIS))
-            .build());
     private final ObjectMapper objectMapper = new ObjectMapper()
             .registerModule(new JavaTimeModule())
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -68,7 +61,7 @@ public class StaticContentClient {
 
     <T> T makeRequest(Request request, TypeReference<T> typeReference) {
         try {
-            String responseString = rateLimiter.executeCheckedSupplier(() -> makeRequestInner(request));
+            String responseString = makeRequestInner(request);
             return objectMapper.readValue(responseString, typeReference);
         } catch (Throwable throwable) {
             logger.error("Failure during access to census via HTTP", throwable);
