@@ -6,10 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 final class ServiceIdInterceptor implements Interceptor {
+    private static final Logger logger = LoggerFactory.getLogger(ServiceIdInterceptor.class);
     private final String serviceId;
 
     ServiceIdInterceptor(String serviceId) {
@@ -33,6 +32,8 @@ final class ServiceIdInterceptor implements Interceptor {
         Request newRequest = chain.request().newBuilder()
                 .url(newHttpUrl)
                 .build();
-        return chain.proceed(newRequest);
+        Response response = chain.proceed(newRequest);
+        logger.trace("Received response {}", response);
+        return response;
     }
 }

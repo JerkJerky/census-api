@@ -77,9 +77,7 @@ public class StaticContentClient {
     }
 
     protected String makeRequestInner(Request request) throws IOException {
-        logger.debug("Sending request {}", request);
         try(Response response = this.httpClient.newCall(request).execute()){
-            logger.debug("Received response {}", response);
             return response.body().string();
         }
     }
